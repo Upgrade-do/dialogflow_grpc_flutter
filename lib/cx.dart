@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 import 'dart:async';
 import 'package:dialogflow_grpc/generated/google/cloud/dialogflow/cx/v3/audio_config.pb.dart';
 import 'package:dialogflow_grpc/generated/google/cloud/dialogflow/cx/v3/session.pb.dart';
@@ -26,7 +25,6 @@ import 'package:uuid/uuid.dart';
 /// Creates a SessionsClient for detecting intents
 /// This class requires a service account.
 class DialogflowGrpcCX {
-
   final CallOptions _options;
 
   // [ClientChannel] which is used for Dialogflow
@@ -63,7 +61,6 @@ class DialogflowGrpcCX {
     return DialogflowGrpcCX._(account.callOptions);
   }
 
-
   /// Listen to audio stream.
   /// Cancelled as soon as dispose is called.
   late StreamSubscription<List<int>> _audioStreamSubscription;
@@ -73,14 +70,12 @@ class DialogflowGrpcCX {
   /// var data = await dialogflow.detectIntent(text, 'en-US');
   /// print(data.queryResult.fulfillmentText);
   /// ```
-  Future<DetectIntentResponse> detectIntent(String text, String lang){
-
+  Future<DetectIntentResponse> detectIntent(String text, String lang) {
     final inputText = TextInput()
       ..text = text
       ..languageCode = lang;
 
-    final queryInput = QueryInput()
-      ..text = inputText;
+    final queryInput = QueryInput()..text = inputText;
 
     final request = DetectIntentRequest()
       ..queryInput = queryInput
@@ -106,8 +101,7 @@ class DialogflowGrpcCX {
   /// });
   /// ```
   Stream<StreamingDetectIntentResponse> streamingDetectIntent(
-      InputConfigV2 config, Stream<List<int>> audioStream)   {
-
+      InputConfigV2 config, Stream<List<int>> audioStream) {
     // Create the stream, which later transmits the necessary
     // data to the Google API
     final request = StreamController<StreamingDetectIntentRequest>();
@@ -117,11 +111,9 @@ class DialogflowGrpcCX {
     QueryInput queryInput = QueryInput()..audioConfig = config.cast();
 
     print(queryInput);
-    request
-        .add(StreamingDetectIntentRequest()
+    request.add(StreamingDetectIntentRequest()
       ..queryInput = queryInput
-      ..session = DialogflowAuth.session
-    );
+      ..session = DialogflowAuth.session);
 
     // Send the request first
     // Afterwards start streaming the audio
