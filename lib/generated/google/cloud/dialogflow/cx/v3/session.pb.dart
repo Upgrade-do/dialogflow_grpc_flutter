@@ -1444,8 +1444,9 @@ class TextInput extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.String get languageCode => $_getSZ(1);
   @$pb.TagNumber(2)
+
   set languageCode($core.String v) {
-    $_setString(1, v);
+    $_setString(0, v);
   }
 
   @$pb.TagNumber(2)
