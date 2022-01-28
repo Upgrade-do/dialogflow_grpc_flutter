@@ -1392,10 +1392,14 @@ class TextInput extends $pb.GeneratedMessage {
   TextInput._() : super();
   factory TextInput({
     $core.String? text,
+    $core.String? languageCode,
   }) {
     final _result = create();
     if (text != null) {
       _result.text = text;
+    }
+    if (languageCode != null) {
+      _result.languageCode = languageCode;
     }
     return _result;
   }
@@ -1436,6 +1440,18 @@ class TextInput extends $pb.GeneratedMessage {
   $core.bool hasText() => $_has(0);
   @$pb.TagNumber(1)
   void clearText() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get languageCode => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set languageCode($core.String v) {
+    $_setString(1, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasLanguageCode() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearLanguageCode() => clearField(2);
 }
 
 class IntentInput extends $pb.GeneratedMessage {

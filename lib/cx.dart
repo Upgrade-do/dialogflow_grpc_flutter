@@ -14,12 +14,12 @@
 
 import 'dart:async';
 import 'package:dialogflow_grpc/generated/google/cloud/dialogflow/cx/v3/audio_config.pb.dart';
-import 'package:dialogflow_grpc/generated/google/cloud/dialogflow/cx/v3/session.pb.dart';
-import 'package:dialogflow_grpc/generated/google/cloud/dialogflow/cx/v3/security_settings.pbgrpc.dart';
-import 'package:dialogflow_grpc/types/cx/input_config.dart';
 import 'package:dialogflow_grpc/dialogflow_auth.dart';
+import 'package:dialogflow_grpc/types/v2/input_config.dart';
 import 'package:grpc/grpc.dart';
 import 'package:uuid/uuid.dart';
+
+import 'generated/google/cloud/dialogflow/cx/v3/session.pbgrpc.dart';
 
 /// An interface to Google Cloud's Dialogflow V2 gRPC API
 /// Creates a SessionsClient for detecting intents
@@ -100,35 +100,35 @@ class DialogflowGrpcCX {
   ///   print(data);
   /// });
   /// ```
-  Stream<StreamingDetectIntentResponse> streamingDetectIntent(
-      InputConfigV2 config, Stream<List<int>> audioStream) {
-    // Create the stream, which later transmits the necessary
-    // data to the Google API
-    final request = StreamController<StreamingDetectIntentRequest>();
-    // add the session to the request
-    // print(DialogflowAuth.session);
+  // Stream<StreamingDetectIntentResponse> streamingDetectIntent(
+  //     InputConfigV2 config, Stream<List<int>> audioStream) {
+  //   // Create the stream, which later transmits the necessary
+  //   // data to the Google API
+  //   final request = StreamController<StreamingDetectIntentRequest>();
+  //   // add the session to the request
+  //   // print(DialogflowAuth.session);
 
-    QueryInput queryInput = QueryInput()..audioConfig = config.cast();
+  //   QueryInput queryInput = QueryInput()..audioConfig = config.cast();
 
-    print(queryInput);
-    request.add(StreamingDetectIntentRequest()
-      ..queryInput = queryInput
-      ..session = DialogflowAuth.session);
+  //   print(queryInput);
+  //   request.add(StreamingDetectIntentRequest()
+  //     ..queryInput = queryInput
+  //     ..session = DialogflowAuth.session);
 
-    // Send the request first
-    // Afterwards start streaming the audio
-    _audioStreamSubscription = audioStream.listen((audio) {
-      // Add audio content when stream changes.
-      request.add(StreamingDetectIntentRequest()..inputAudio = audio);
-    });
+  //   // Send the request first
+  //   // Afterwards start streaming the audio
+  //   _audioStreamSubscription = audioStream.listen((audio) {
+  //     // Add audio content when stream changes.
+  //     request.add(StreamingDetectIntentRequest()..inputAudio = audio);
+  //   });
 
-    _audioStreamSubscription.onDone(() {
-      // Close the request stream, if the audio stream is finished.
-      request.close();
-    });
+  //   _audioStreamSubscription.onDone(() {
+  //     // Close the request stream, if the audio stream is finished.
+  //     request.close();
+  //   });
 
-    return client.streamingDetectIntent(request.stream);
-  }
+  //   return client.streamingDetectIntent(request.stream);
+  // }
 
   /// Cancels the StreamSubscription
   void dispose() {
