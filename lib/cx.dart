@@ -101,35 +101,35 @@ class DialogflowGrpcCX {
   ///   print(data);
   /// });
   /// ```
-  streamingDetectIntent(
-      InputConfigV2 config, Stream<List<int>> audioStream) {
-    // Create the stream, which later transmits the necessary
-    // data to the Google API
-    final request = StreamController<v2.StreamingDetectIntentRequest>();
-    // add the session to the request
-    // print(DialogflowAuth.session);
+  // streamingDetectIntent(
+  //     InputConfigV2 config, Stream<List<int>> audioStream) {
+  //   // Create the stream, which later transmits the necessary
+  //   // data to the Google API
+  //   final request = StreamController<v2.StreamingDetectIntentRequest>();
+  //   // add the session to the request
+  //   // print(DialogflowAuth.session);
 
-    v2.QueryInput queryInput = v2.QueryInput()..audioConfig = config.cast();
+  //   v2.QueryInput queryInput = v2.QueryInput()..audioConfig = config.cast();
 
-    print(queryInput);
-    request.add(v2.StreamingDetectIntentRequest()
-      ..queryInput = queryInput
-      ..session = DialogflowAuth.session);
+  //   print(queryInput);
+  //   request.add(v2.StreamingDetectIntentRequest()
+  //     ..queryInput = queryInput
+  //     ..session = DialogflowAuth.session);
 
-    // Send the request first
-    // Afterwards start streaming the audio
-    _audioStreamSubscription = audioStream.listen((audio) {
-      // Add audio content when stream changes.
-      request.add(v2.StreamingDetectIntentRequest()..inputAudio = audio);
-    });
+  //   // Send the request first
+  //   // Afterwards start streaming the audio
+  //   _audioStreamSubscription = audioStream.listen((audio) {
+  //     // Add audio content when stream changes.
+  //     request.add(v2.StreamingDetectIntentRequest()..inputAudio = audio);
+  //   });
 
-    _audioStreamSubscription.onDone(() {
-      // Close the request stream, if the audio stream is finished.
-      request.close();
-    });
+  //   _audioStreamSubscription.onDone(() {
+  //     // Close the request stream, if the audio stream is finished.
+  //     request.close();
+  //   });
 
-    return request;
-  }
+  //   return request;
+  // }
 
   /// Cancels the StreamSubscription
   void dispose() {
