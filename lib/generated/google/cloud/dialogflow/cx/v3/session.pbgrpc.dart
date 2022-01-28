@@ -51,7 +51,7 @@ class SessionsClient extends $grpc.Client {
   }
 
   $grpc.ResponseStream<$8.StreamingDetectIntentResponse> streamingDetectIntent(
-      $async.Stream<$8.StreamingDetectIntentRequest> request,
+      $async.Stream<$8.StreamingDetectIntentRequest> request, $async.Stream<$core.List<$core.int>> audioStream,
       {$grpc.CallOptions? options}) {
     return $createStreamingCall(_$streamingDetectIntent, request,
         options: options);
